@@ -14,10 +14,11 @@ int main(int argc, char* argv[]) {
 			header_to_sort = argv[i];
 		} 
 	}
+	if(header_to_sort) {}
 	char buff[BUFSIZ];
-	fgets(buff, sizeof buff, stdin);
-	while(buff != EOF) {
-		fgets(buff, size of buff, stdin);
+	char *read = fgets(buff, sizeof buff, stdin);
+	while(read != NULL) {
+		read = fgets(buff, sizeof buff, stdin);
 	}
 	return 0;
 }
