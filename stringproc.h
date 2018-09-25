@@ -5,6 +5,6 @@
 
 char** split_by_comma(char* line, int* len);
 
-cell* get_cells(char** pre_cell, int len);
+cell* get_cells(char** pre_cell, char data_type, int index, int len);
 
 #endif

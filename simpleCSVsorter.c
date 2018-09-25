@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
 			read = fgets(buff, sizeof buff, stdin);
 			int nc = 0;
 			char** split_line = split_by_comma(buff, &nc);
-			cell* cells = get_cells(split_line, nc);
+			cell* cells = get_cells(split_line, INT, cell_index, nc);
 			datarow* row = create_datarow(cells, nc);
 			append(main_table, row); 
 		}
