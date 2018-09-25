@@ -1,6 +1,6 @@
 #define bool char
-#define true 't'
-#define false 'f'
+#define true 1
+#define false 0
 #define INT 'i'
 #define STR 's'
 
