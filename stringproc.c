@@ -54,17 +54,18 @@ cell* get_cells(char** pre_cell, char data_type, int index, int len) {
 			cells[i].data_type = data_type;
 			int st = 0;
 			int end = 0;
-			while(pre_cell[i][st] == ' ' || pre_cell[i][st] == '\t') st++;
+			while(pre_cell[i][st] == ' ' || pre_cell[i][st] == '\t' || pre_cell[i][st] == '"') st++;
 			while(pre_cell[i][end] != '\0') end++;
 			end--;
-			while(end > -1 && (pre_cell[i][end] == ' ' || pre_cell[i][end] == '\t')) end--;
+			while(end > -1 && (pre_cell[i][end] == ' ' || pre_cell[i][end] == '\t' || pre_cell[i][end] == '"')) end--;
 			if(end <= st) cells[i].is_empty = true;
 			else {
 				cells[i].is_empty = false;
 				int j = 0;
+				cells[i].str_datum = (char*)malloc((end - st + 2) * sizeof(char));
 				for(j = st; j <= end; j++)
 					cells[i].str_datum[j - st] = pre_cell[i][j];
-				cells[i].str_datum[j - st + 1] = '\0';
+				cells[i].str_datum[j - st] = '\0';
 				cells[i].str_len = end - st + 1;
 				if(data_type == INT)
 					cells[i].num_datum = atoi(cells[i].str_datum);

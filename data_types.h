@@ -11,6 +11,7 @@
 #define false 0
 #define INT 'i'
 #define STR 's'
+#define DATE 'd'
 
 #define TABLE_SIZE 5000
 
