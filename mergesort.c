@@ -1,4 +1,7 @@
-#include "simpleCSVsorter.h"
+//#include "simpleCSVsorter.h"
+#include <stdio.h>
+#include <string.h>
+#include "data_types.c"
 
 int compare(datarow A, datarow B, int index){
 	if(A.cells[index].data_type == INT){
@@ -28,10 +31,10 @@ datarow * merge(datarow * A, int nA, datarow * B, int nB, int index){
 		}
 	}
 	while(Acount != nA) {
-		merged_data[Ccount++] = A[Acount++]
+		merged_data[Ccount++] = A[Acount++];
 	} 
 	while(Bcount != nB) {
-		merged_data[Ccount++] = B[Bcount++]
+		merged_data[Ccount++] = B[Bcount++];
 	} 
 	return merged_data;
 }
@@ -45,8 +48,8 @@ datarow * sort(datarow * data, int ndata, int index) {
 	if(ndata % 2 != 0) nB++;
 	datarow * A = malloc(nA * sizeof(datarow));
 	datarow * B = malloc(nB * sizeof(datarow));
-	memcpy(A, data, nA*sizeof(datarow));
-	memcpy(B, &data[nA], nB*sizeof(datarow));
+	A = memcpy(A, data, nA*sizeof(datarow));
+	B = memcpy(B, &data[nA], nB*sizeof(datarow));
 	A = sort(A, nA, index);
 	B = sort(B, nB, index);
 	return merge(A, nA, B, nB, index);
@@ -56,13 +59,14 @@ datarow * sort(datarow * data, int ndata, int index) {
 datarow * mergesort(datarow * data, int index, int nrows ) {
   //first do pre-processing and move all the null cells to the front.
   //array to hold final sorted data
-	datarow * sorted_data = malloc(nrows*sizeof(struct datarow));
+	datarow * sorted_data = malloc(nrows*sizeof(datarow));
   //array to hold the non-null data (to merge-sort)
 	datarow * to_sort = malloc(nrows*sizeof(datarow));
 	int n_null = 0;
 	int nto_sort = 0;
-	for(int i = 0; i < nrows; ++i){
-		if(data[i][index].is_empty == true){
+	int i;
+	for(i = 0; i < nrows; ++i){
+		if(data[i].cells[index].is_empty == true){
 			sorted_data[n_null++] = data[i];
 		}
 		else {
@@ -70,7 +74,7 @@ datarow * mergesort(datarow * data, int index, int nrows ) {
 		}
 	}
 
-	to_sort = sort(to_sort, n_val, index);
+	to_sort = sort(to_sort, nto_sort, index);
 	memcpy(&sorted_data[n_null], to_sort, nto_sort*sizeof(datarow));
 	return sorted_data;
 
