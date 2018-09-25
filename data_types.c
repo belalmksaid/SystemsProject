@@ -1,6 +1,6 @@
 #define bool char
-#define 't' true
-#define 'f' false
+#define true 't'
+#define false 'f'
 
 typedef struct {
 	char* str_datum;
