@@ -11,6 +11,9 @@
 
 #define TABLE_SIZE 5000
 
+#define max(a, b) (a > b ? a : b)
+
+
 typedef struct {
 	char* original;
 	char* str_datum;
