@@ -11,5 +11,5 @@ test: stringproc.c data_types.c test.c
 mergesort: mergesort.c mergetest.c
 	gcc -Wall -Werror -fsanitize=address -g mergesort.c -g data_types.c -o mergetest 
 	
-clean: mergesort
-	rm -f mergetest
+clean:
+	rm test.o
