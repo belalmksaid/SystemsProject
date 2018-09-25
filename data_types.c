@@ -12,6 +12,7 @@
 #define TABLE_SIZE 5000
 
 typedef struct {
+	char* original;
 	char* str_datum;
 	int str_len;
 	int num_datum;
