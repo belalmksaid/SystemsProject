@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <errno.h>
-#include <string.h>
-
+#include "simpleCSVsorter.h"
 
 int main(int argc, char* argv[]) {
 	if(argc < 3)
@@ -14,11 +11,29 @@ int main(int argc, char* argv[]) {
 			header_to_sort = argv[i];
 		} 
 	}
-	if(header_to_sort) {}
+	
 	char buff[BUFSIZ];
 	char *read = fgets(buff, sizeof buff, stdin);
-	while(read != NULL) {
-		read = fgets(buff, sizeof buff, stdin);
+	int no_of_cols = 0;
+	char** headers = split_by_comma(buff, &no_of_cols);
+	int cell_index = -1;
+	for(i = 0; i < no_of_cols; i++) {
+		if(strcmp(headers[i], header_to_sort)) {
+			cell_index = i;
+			break;
+		}
+	}
+	if(cell_index != -1) {
+		table* main_table = create_table();
+		main_table->header = headers;
+		while(read != NULL) {
+			read = fgets(buff, sizeof buff, stdin);
+			int nc = 0;
+			char** split_line = split_by_comma(buff, &nc);
+			cell* cells = get_cells(split_line, nc);
+			datarow* row = create_datarow(cells, nc);
+			append(main_table, row); 
+		}
 	}
 	return 0;
 }
