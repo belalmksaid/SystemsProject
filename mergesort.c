@@ -36,29 +36,42 @@ datarow * merge(datarow * A, int nA, datarow * B, int nB, int index){
 	return merged_data;
 }
 
+datarow * sort(datarow * data, int ndata, int index) {
+	if(ndata == 1){
+		return data;
+	}
+	int nA = ndata/2;
+	int nB = ndata/2;
+	if(ndata % 2 != 0) nB++;
+	datarow * A = malloc(nA * sizeof(datarow));
+	datarow * B = malloc(nB * sizeof(datarow));
+	memcpy(A, data, nA*sizeof(datarow));
+	memcpy(B, &data[nA], nB*sizeof(datarow));
+	A = sort(A, nA, index);
+	B = sort(B, nB, index);
+	return merge(A, nA, B, nB, index);
+}
 
 
 datarow * mergesort(datarow * data, int index, int nrows ) {
-  //first divide data into 2 arrays of equal length. Sort each of those. Then merge them.	
-/*	cell * A = malloc(data.size/2 * sizeof(struct cell));
-	cell * B = malloc(data.size/2 * sizeof(struct cell));
-	memcpy(A, &data.cells, data.size/2*sizeof(struct cell));
-	memcpy(B, &data.cells[data.size/2], data.size/2*sizeof(struct cell)); */
+  //first do pre-processing and move all the null cells to the front.
+  //array to hold final sorted data
 	datarow * sorted_data = malloc(nrows*sizeof(struct datarow));
+  //array to hold the non-null data (to merge-sort)
+	datarow * to_sort = malloc(nrows*sizeof(datarow));
 	int n_null = 0;
+	int nto_sort = 0;
 	for(int i = 0; i < nrows; ++i){
 		if(data[i][index].is_empty == true){
 			sorted_data[n_null++] = data[i];
 		}
+		else {
+			to_sort[nto_sort++] = data[i];
+		}
 	}
-	int n_val = nrows - n_null;
-	int nA = n_val/2;
-	int nB = n_val/2;
-	if(n_val % 2 != 0) nB++;
-	datarow * A = malloc(nA * sizeof(datarow));
-	datarow * B = malloc(nB * sizeof(datarow));
 
-
-	merge(A, nA, B, nB);
+	to_sort = sort(to_sort, n_val, index);
+	memcpy(&sorted_data[n_null], to_sort, nto_sort*sizeof(datarow));
+	return sorted_data;
 
 }
