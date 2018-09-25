@@ -1,5 +1,15 @@
 #include "simpleCSVsorter.h"
 
+char get_type(char* val) {
+	if(strcmp(val, "color") == 0 || strcmp(val, "director_name") == 0 || strcmp(val, "actor_2_name") == 0 || strcmp(val, "genres") == 0 || strcmp(val, "actor_1_name") == 0 || strcmp(val, "movie_title") == 0 || strcmp(val, "actor_3_name") == 0 || strcmp(val, "plot_keywords") == 0  || strcmp(val, "movie_imdb_link") == 0 || strcmp(val, "language") == 0 || strcmp(val, "country") == 0 || strcmp(val, "content_rating") == 0) {
+		return STR;
+	}
+	else if(strcmp(val, "duration") == 0)
+		return DATE;
+	return INT;
+}
+
+
 int main(int argc, char* argv[]) {
 	if(argc < 3)
 		perror("incorrect arguments");
