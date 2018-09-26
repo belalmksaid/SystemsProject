@@ -1,4 +1,4 @@
-//#include "simpleCSVsorter.h"
+#include "simpleCSVsorter.h"
 #include <stdio.h>
 #include <string.h>
 #include "data_types.h"
@@ -38,6 +38,7 @@ datarow * merge(datarow * A, int nA, datarow * B, int nB, int index){
 	} 
 	return merged_data;
 }
+
 
 datarow * sort(datarow * data, int ndata, int index) {
 	if(ndata == 1){
