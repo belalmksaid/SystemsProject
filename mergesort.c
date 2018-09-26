@@ -1,7 +1,7 @@
 //#include "simpleCSVsorter.h"
 #include <stdio.h>
 #include <string.h>
-#include "data_types.c"
+#include "data_types.h"
 
 int compare(datarow A, datarow B, int index){
 	if(A.cells[index].data_type == INT){
