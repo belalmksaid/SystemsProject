@@ -53,7 +53,11 @@ int main(int argc, char* argv[]) {
 			append(main_table, &row); 
 		}
 		datarow* sorted = mergesort(main_table->rows, cell_index, main_table->size);
-		if(sorted) {}
+		int j;
+		for(j = 0; j < main_table->size; ++j){
+			print_row(&sorted[j]);
+		}
+//		if(sorted) {}
 	}
 	return 0;
 }
