@@ -9,14 +9,21 @@ char get_type(char* val) {
 	return INT;
 }
 
+void print_row(datarow* row) {
+	int i = 0;
+	for(i = 0; i < row->size; i++)
+		printf("%s ", row->cells[i].original);
+	printf("\n");
+}
+
 
 int main(int argc, char* argv[]) {
 	if(argc < 3)
 		perror("incorrect arguments");
 	int i = 1;
 	char* header_to_sort = NULL;
-	for(i = 2; i < argc; i++) {
-		if(strcmp(argv[i], "-c")) {
+	for(i = 1; i < argc; i++) {
+		if(strcmp(argv[i], "-c") == 0) {
 			i++;
 			header_to_sort = argv[i];
 		} 
