@@ -5,7 +5,7 @@ char get_type(char* val) {
 		return STR;
 	}
 	else if(strcmp(val, "duration") == 0)
-		return DATE;
+		return INT;
 	return INT;
 }
 
@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
 			header_to_sort = argv[i];
 		} 
 	}
-	
+	char sort_type = get_type(header_to_sort);
 	char buff[BUFSIZ];
 	char *read = fgets(buff, sizeof buff, stdin);
 	int no_of_cols = 0;
@@ -40,9 +40,9 @@ int main(int argc, char* argv[]) {
 			read = fgets(buff, sizeof buff, stdin);
 			int nc = 0;
 			char** split_line = split_by_comma(buff, &nc);
-			cell* cells = get_cells(split_line, INT, cell_index, nc);
-			datarow* row = create_datarow(cells, nc);
-			append(main_table, row); 
+			cell* cells = get_cells(split_line, sort_type, cell_index, nc);
+			datarow row = create_datarow(cells, nc);
+			append(main_table, &row); 
 		}
 	}
 	return 0;

@@ -33,13 +33,13 @@ typedef struct {
 } datarow;
 
 typedef struct {
-        datarow** rows;
+        datarow* rows;
         char** header;
         int size;
         int max_size;
 } table;
 
-datarow* create_datarow(cell* cells, int col_count);
+datarow create_datarow(cell* cells, int col_count);
 table* create_table();
 void append(table* tab, datarow* row);
 
