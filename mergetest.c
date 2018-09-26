@@ -12,8 +12,11 @@ char get_type(char* val) {
 
 void print_row(datarow* row) {
 	int i = 0;
-	for(i = 0; i < row->size; i++)
-		printf("%s ", row->cells[i].original);
+	for(i = 0; i < row->size; i++){
+		printf("%s", row->cells[i].original);
+		if(i < row->size - 1) printf(",");
+	}
+
 	printf("\n");
 }
 
