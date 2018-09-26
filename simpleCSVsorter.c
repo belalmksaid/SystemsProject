@@ -1,4 +1,5 @@
 #include "simpleCSVsorter.h"
+#include "mergesort.h"
 
 char get_type(char* val) {
 	if(strcmp(val, "color") == 0 || strcmp(val, "director_name") == 0 || strcmp(val, "actor_2_name") == 0 || strcmp(val, "genres") == 0 || strcmp(val, "actor_1_name") == 0 || strcmp(val, "movie_title") == 0 || strcmp(val, "actor_3_name") == 0 || strcmp(val, "plot_keywords") == 0  || strcmp(val, "movie_imdb_link") == 0 || strcmp(val, "language") == 0 || strcmp(val, "country") == 0 || strcmp(val, "content_rating") == 0) {
@@ -11,11 +12,9 @@ char get_type(char* val) {
 
 void print_row(datarow* row) {
 	int i = 0;
-	for(i = 0; i < row->size; i++) {
-		printf("%s", row->cells[i].original);
-		if(i < row->size - 1)
-			printf(",");
-	}
+	for(i = 0; i < row->size; i++)
+		printf("%s ", row->cells[i].original);
+	printf("\n");
 }
 
 
@@ -37,7 +36,7 @@ int main(int argc, char* argv[]) {
 	char** headers = split_by_comma(buff, &no_of_cols);
 	int cell_index = -1;
 	for(i = 0; i < no_of_cols; i++) {
-		if(strcmp(headers[i], header_to_sort) == 0) {
+		if(!strcmp(headers[i], header_to_sort)) {
 			cell_index = i;
 			break;
 		}
@@ -45,14 +44,21 @@ int main(int argc, char* argv[]) {
 	if(cell_index != -1) {
 		table* main_table = create_table();
 		main_table->header = headers;
+		read = fgets(buff, sizeof buff, stdin);
 		while(read != NULL) {
-			read = fgets(buff, sizeof buff, stdin);
 			int nc = 0;
 			char** split_line = split_by_comma(buff, &nc);
 			cell* cells = get_cells(split_line, sort_type, cell_index, nc);
 			datarow row = create_datarow(cells, nc);
 			append(main_table, &row); 
+			read = fgets(buff, sizeof buff, stdin);
 		}
+		datarow* sorted = mergesort(main_table->rows, cell_index, main_table->size);
+		int j;
+		for(j = 0; j < main_table->size; ++j){
+			print_row(&sorted[j]);
+		}
+//		if(sorted) {}
 	}
 	return 0;
 }
