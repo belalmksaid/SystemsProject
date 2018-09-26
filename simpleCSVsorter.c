@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
 	char** headers = split_by_comma(buff, &no_of_cols);
 	int cell_index = -1;
 	for(i = 0; i < no_of_cols; i++) {
-		if(strcmp(headers[i], header_to_sort)) {
+		if(strcmp(headers[i], header_to_sort) == 0) {
 			cell_index = i;
 			break;
 		}
