@@ -22,7 +22,7 @@ datarow * merge(datarow * A, int nA, datarow * B, int nB, int index){
 	int Ccount = 0;
 	while(Acount != nA && Bcount != nB){
 		int comp = compare(A[Acount], B[Bcount], index);
-		if(comp >= 0){
+		if(comp <= 0){
 			merged_data[Ccount++] = A[Acount++];	
 		}
 		else {
