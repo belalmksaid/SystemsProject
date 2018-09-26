@@ -44,13 +44,14 @@ int main(int argc, char* argv[]) {
 	if(cell_index != -1) {
 		table* main_table = create_table();
 		main_table->header = headers;
+		read = fgets(buff, sizeof buff, stdin);
 		while(read != NULL) {
-			read = fgets(buff, sizeof buff, stdin);
 			int nc = 0;
 			char** split_line = split_by_comma(buff, &nc);
 			cell* cells = get_cells(split_line, sort_type, cell_index, nc);
 			datarow row = create_datarow(cells, nc);
 			append(main_table, &row); 
+			read = fgets(buff, sizeof buff, stdin);
 		}
 		datarow* sorted = mergesort(main_table->rows, cell_index, main_table->size);
 		int j;
