@@ -1,0 +1,22 @@
+
+
+##Code design##
+
+Data structures:
+	cell: contains the original data and converted data at a certain cell in the table
+	datarow: contains a row of cells and the number of cells
+	table: contains an array of rows
+
+Process:
+	Read cvs file-> mergesort -> output sorted data
+
+Read csv file:
+	input is read line by line and each line is processed by split_by_comma() which split the string into an array of strings
+	then the array of strings is processed by get_cells() to return an array of cells to create a datarow
+	cells that match the index of the of header we're sorting by get converted to the datatype
+
+mergesort:
+
+
+output:
+	we go through the output of the sorted datarows and pring the original, unmodified data using printf
