@@ -12,11 +12,20 @@ char get_type(char* val) {
 
 void print_row(datarow* row) {
 	int i = 0;
-	for(i = 0; i < row->size; i++){
+	for(i = 0; i < row->size; i++) {
 		printf("%s", row->cells[i].original);
 		if(i < row->size - 1) printf(",");
 	}
 
+	printf("\n");
+}
+
+void print_header(char** vals, int n) {
+	int i = 0;
+	for(i = 0; i < n; i++) {
+		printf("%s", vals[i]);
+		if(i < n - 1) printf(",");
+	}
 	printf("\n");
 }
 
@@ -57,11 +66,11 @@ int main(int argc, char* argv[]) {
 			read = fgets(buff, sizeof buff, stdin);
 		}
 		datarow* sorted = mergesort(main_table->rows, cell_index, main_table->size);
+		print_header(headers, no_of_cols);
 		int j;
 		for(j = 0; j < main_table->size; ++j){
-			print_row(&sorted[j]);
+			print_row(&(sorted[j]));
 		}
-//		if(sorted) {}
 	}
 	return 0;
 }
