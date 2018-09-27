@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "mergesort.h"
+#include "simpleCSVsorter.h"
 
 int compare(datarow A, datarow B, int index){
 	if(A.cells[index].data_type == INT){

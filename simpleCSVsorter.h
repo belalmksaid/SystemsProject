@@ -55,7 +55,7 @@ cell* get_cells(char** pre_cell, char data_type, int index, int len);
 void print_header(char** vals, int n);
 
 // post processing
-void print_row(datarow* row)
+void print_row(datarow* row);
 
 char get_type(char* val);
 
@@ -206,3 +206,5 @@ cell* get_cells(char** pre_cell, char data_type, int index, int len) {
 }
 
 
+
+#endif
