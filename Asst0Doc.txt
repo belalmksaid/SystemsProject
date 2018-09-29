@@ -1,22 +1,37 @@
 
 
+simpleCSVsorter
+
+Takes a comma-separted-values (csv) file with data for a different movie on each row and sorts the movies in ascending order based on a user-defined column header. 
+
+Usage: cat /path/to/input/file.csv | ./simpleCSVsorter -c name_of_column_header
+
 ##Code design##
 
 Data structures:
-	cell: contains the original data and converted data at a certain cell in the table
-	datarow: contains a row of cells and the number of cells
-	table: contains an array of rows
+	cell: contains the original data and converted data at a certain cell in the table (between commas in a single row of the csv file)
+	datarow: contains a row of cells and the number of cells (to store the data from a full row of the csv file)
+	table: contains an array of rows (to store the data of the entire csv file).
 
 Process:
-	Read cvs file-> mergesort -> output sorted data
+	Read csv file-> mergesort -> output sorted data
 
-Read csv file:
-	input is read line by line and each line is processed by split_by_comma() which split the string into an array of strings
-	then the array of strings is processed by get_cells() to return an array of cells to create a datarow
-	cells that match the index of the of header we're sorting by get converted to the datatype
+Read csv file: simpleCSVsorter.c
+	Input is read line by line and each line is processed by split_by_comma() which split the string into an array of strings.
+	Then the array of strings is processed by get_cells() to return an array of cells to create a datarow.
+	Cells that match the index of the of header we're sorting by get converted to the datatype.
 
-mergesort:
+mergesort: mergesort.c
+	Top function: mergesort()
+	Input datarows (array of all rows to be sorted, taken directly from the table objet), index (which column to sort the rows by), and nrows (the length of datarows).
+	First datarows is parsed to find all objects with a null cell in the column to be sorted, and these rows are moved to the beginning of the sorted_data (to be returned at the end).
+	Then the remaining rows are sent to the recursive function sort(), along with the index to be sorted by. 
+	sort() recursively divides its input array in half until only one row remains, then calls the function merge() to properly order its elements.
+	merge() takes in two sorted arrays of rows and merges them into a single sorted array of twice the size. It does its comparison using the compare() function, 
+	compare() takes in two rows and which index to compare, and returns a number > 0 if the value of the first row is bigger, less than 0 if the second is bigger, and 0 if they're equal. 
+	The resulting array from the last call to merge() is sent back to the first call to sort(), and then returned to mergesort.
+	This array is then appended to the end of the sorted_data array, which already has all the rows with null values. The now complete array can now be returned to the main function. 
+	Returns: sorted_data, array of rows in sorted order.
 
-
-output:
-	we go through the output of the sorted datarows and pring the original, unmodified data using printf
+output: simpleCSVsorter.c
+	We go through the output of the sorted datarows and pring the original, unmodified data to STDOUT using printf.

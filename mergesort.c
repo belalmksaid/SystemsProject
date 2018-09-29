@@ -2,6 +2,7 @@
 #include <string.h>
 #include "simpleCSVsorter.h"
 
+//return > 0 if A is larger, < 0 if B is larger, 0 if A = B.
 int compare(datarow A, datarow B, int index){
 	if(A.cells[index].data_type == INT){
 		if(A.cells[index].num_datum > B.cells[index].num_datum) {
