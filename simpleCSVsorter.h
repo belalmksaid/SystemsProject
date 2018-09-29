@@ -15,6 +15,7 @@
 #define INT 'i'
 #define STR 's'
 #define DATE 'd'
+#define FLOAT 'f'
 
 #define TABLE_SIZE 5000
 
@@ -26,6 +27,7 @@ typedef struct {
         char* str_datum;
         int str_len;
         int num_datum;
+	float f_datum;
         char data_type;
         bool is_empty;
 } cell;

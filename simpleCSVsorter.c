@@ -7,7 +7,7 @@ char get_type(char* val) {
 	}
 	else if(strcmp(val, "duration") == 0)
 		return INT;
-	return INT;
+	return FLOAT;
 }
 
 void print_row(datarow* row) {
@@ -130,6 +130,8 @@ cell* get_cells(char** pre_cell, char data_type, int index, int len) {
 				cells[i].str_len = end - st + 1;
 				if(data_type == INT)
 					cells[i].num_datum = atoi(cells[i].str_datum);
+				else if(data_type == FLOAT)
+					cells[i].f_datum = atof(cells[i].str_datum);
 			}
 		}
 	}

@@ -13,6 +13,15 @@ int compare(datarow A, datarow B, int index){
 		}
 		return 0;
 	}	
+	else if(A.cells[index].data_type == FLOAT){
+		if(A.cells[index].f_datum > B.cells[index].f_datum) {
+			return 1;
+		}
+		else if(A.cells[index].f_datum < B.cells[index].f_datum){
+			return -1;
+		}
+		return 0;
+	}	
 	return strcmp(A.cells[index].str_datum, B.cells[index].str_datum);
 }
 
