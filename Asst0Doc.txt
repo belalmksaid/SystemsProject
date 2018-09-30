@@ -8,7 +8,7 @@ Usage: cat /path/to/input/file.csv | ./simpleCSVsorter -c name_of_column_header
 
 ##Code design##
 
-Data structures:
+Data structures: simpleCSVsorter.h
 	cell: contains the original data and converted data at a certain cell in the table (between commas in a single row of the csv file)
 	datarow: contains a row of cells and the number of cells (to store the data from a full row of the csv file)
 	table: contains an array of rows (to store the data of the entire csv file).
@@ -35,3 +35,27 @@ mergesort: mergesort.c
 
 output: simpleCSVsorter.c
 	We go through the output of the sorted datarows and pring the original, unmodified data to STDOUT using printf.
+
+More information:
+	The header file simpleCSVsorter.h contains definitions for all the structs used, along with some definitions to improve readability of the code. 
+	For testing, we used "movie_metadata.csv"
+
+EXTRA CREDIT: Interesting movie statistics found with help from simpleCSVsorter and movie_metadata.csv
+	Many people have a difficult time holding their attention for a long time, so we hypothesized that movies with longer running times would perform worse
+	than shorter movies at the box office and with the ratings. Using some small modifications to the simpleCSVsorter.c file, we were able to perform some simple data mining
+	to investigate this hypothesis. We found that the average IMDB rating for movies longer than 2 hours in running time (that were included in the movie_metadata.csv file) was
+	actually 7.05, while the average score for movies shorter than 2 hours was only about 6.26. Even more surprising, the money grossed by the films was on average 
+	$77.7 million for long movies, and only $38.9 million for short ones. That means movies >= 2 hours long made, on average, DOUBLE the money of movies < 2 hours. 
+	Movies longer than 2 1/2 hours did EVEN BETTER, averaging 7.41 with IMDB and a gross of *$112.1 million*. It seems that our hypothesis about people's attention span was not 
+	justified. It would be interesting to investigate why that is, but alas that seems like it would be more fitting for a psychology class than for CS214.
+	Our algorithm for doing these calculations was to parse the csv file and store its data in a table, in almost the exact same way as we did when we wanted to sort it.
+	Then go through each row and add its score and gross to the respective running total for either long movie or short movie (the cutoff was a command-line argument).
+	Then the average for each statistic was found by dividing by the total number of movies that had data for it. The file used for this analysis is included: CSVanalyzer.c.
+
+	Generalizing the sorter for any .csv file
+	Generalizing the simpleCSVsorter for any csv file would require only a few modifications. In its current form, the csv file can only deal with strings, ints, and floats
+	with the names specified in the assignment sheet. But if a random csv file could specify in the header not only the name of the column but also the data type, we could incorporate
+	this into the file-reading part of the algorithm, and just store the raw data in our table of cells. Then, in the mergesort part of the algorithm, the only thing that would
+	need to change is the compare() function. But in order to compare unknown data types, a compare() function would need to be specified by the user. So that is some additional
+	data that we would need. It would most likely be most easily provided as an additional command-line argument, linking simpleCSVsorter to the file that contains that necessary
+	compare() function. Then that compare() function could be called instead of the default one (which can only compare ints, strings, and floats) if it's specified.
