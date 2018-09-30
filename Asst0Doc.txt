@@ -20,6 +20,7 @@ Read csv file: simpleCSVsorter.c
 	Input is read line by line and each line is processed by split_by_comma() which split the string into an array of strings.
 	Then the array of strings is processed by get_cells() to return an array of cells to create a datarow.
 	Cells that match the index of the of header we're sorting by get converted to the datatype.
+	Datarows get added to a struct table, which acts alike an arraylist. Once the number of rows exceed the array size, a new array is created with double the size and the elements are copied to the new array.
 
 mergesort: mergesort.c
 	Top function: mergesort()
